@@ -27,7 +27,12 @@ RUN test -d /var/run/lock || mkdir -p /var/run/lock \
     && sed -i 's/<\/VirtualHost>/ErrorLogFormat \"httpd-ssl-error [%{u}t] [%-m:%l] [pid %P:tid %T] %7F: %E: [client\\ %a] %M% ,\\ referer\\ %{Referer}i\"\n<\/VirtualHost>/g' /etc/httpd/conf.d/ssl.conf \
     && sed -i 's/CustomLog logs\/ssl_request_log/CustomLog \/dev\/stdout/g' /etc/httpd/conf.d/ssl.conf \
     && sed -i 's/TransferLog logs\/ssl_access_log/TransferLog \/dev\/stdout/g' /etc/httpd/conf.d/ssl.conf
-    
-EXPOSE 80 443
+
+RUN rm -f /etc/conf.d/autoindex.conf \
+    && rm -f /etc/conf.d/README \
+    && rm -f /etc/conf.d/userdir.conf \
+    && rm -f /etc/conf.d/welcome.conf
+
+EXPOSE 443
 
 CMD ["httpd-shibd-foreground"]
