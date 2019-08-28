@@ -30,6 +30,7 @@ RUN rm -f /etc/httpd/conf.d/autoindex.conf \
     && rm -f /etc/httpd/conf.d/welcome.conf
 
 COPY ssl.conf /etc/httpd/conf.d/ssl.conf
+COPY chain.crt /etc/ssl/certs/chain.crt
 
 EXPOSE 443
 
